@@ -34,7 +34,6 @@ class ToDo extends Component {
   // Change Todo Status
   changecompleted = async (e, id) => {
     const completed = e.target.checked;
-
     try {
       const updateCompleted = {
         completed: completed,
@@ -43,7 +42,6 @@ class ToDo extends Component {
         `https://jsonplaceholder.typicode.com/todos/${id}`,
         updateCompleted
       );
-
       const updatedTodos = this.state.todos.map((todo) => {
         if (parseInt(todo.id) === parseInt(id)) {
           todo.completed = completed;
@@ -56,6 +54,18 @@ class ToDo extends Component {
     }
   };
 
+  // Handle todo add and show modal form
+  handleAdd = () => {
+    this.setState({
+      addEdit: true,
+      display: 'block',
+      show: 'show',
+      title: '',
+      id: '',
+    });
+  };
+
+  // Add Todo
   onAddTodo = async () => {
     const newTodo = {
       id: Math.floor(Math.random() * (2000 - 201) + 201),
@@ -80,25 +90,17 @@ class ToDo extends Component {
     }
   };
 
-  // Handle todo add
-  handleAdd = () => {
-    this.setState({
-      addEdit: true,
-      display: 'block',
-      show: 'show',
-      title: '',
-      id: '',
-    });
-  };
-
+  // Close modal form
   handleClose = () => {
     this.setState({ display: 'none', show: 'hide' });
   };
 
+  // On change value of input
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // Handle edit and update todo status
   handleEdit = async (id, title) => {
     this.setState({
       show: 'show',
@@ -139,6 +141,7 @@ class ToDo extends Component {
   render() {
     return (
       <React.Fragment>
+        {/* Modal Form */}
         <div
           className={`modal fade ${this.state.show} `}
           id='exampleModal'
@@ -214,7 +217,7 @@ class ToDo extends Component {
             </div>
           </div>
         </div>
-
+        {/* Table  */}
         <table className='table table-hover'>
           <thead>
             <tr>
