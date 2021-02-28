@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Loading from './components/Loading';
+import ToDo from './components/ToDo';
+
+class App extends Component {
+  state = { todos: [] };
+
+  async componentDidMount() {
+    let result = await axios.get('https://jsonplaceholder.typicode.com/todos');
+    await new Promise((x) => setTimeout(x, 1000));
+    this.setState({ todos: result.data });
+  }
+
+  render() {
+    return (
+      <div className='container'>
+        {this.state.todos.length > 0 ? (
+          <div>
+            <ToDo todos={this.state.todos} />
+          </div>
+        ) : (
+          <div
+            className='d-flex justify-content-center align-items-center'
+            style={{ minHeight: '100vh' }}
+          >
+            <Loading />
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
 export default App;
