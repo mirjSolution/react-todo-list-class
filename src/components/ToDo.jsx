@@ -58,10 +58,10 @@ class ToDo extends Component {
 
   onAddTodo = async () => {
     const newTodo = {
-      id: this.state.todos.length + 1,
+      id: Math.floor(Math.random() * (2000 - 201) + 201),
       title: this.state.title,
     };
-
+    console.log(Math.floor(Math.random() * (2000 - 201) + 201));
     try {
       await axios.post('https://jsonplaceholder.typicode.com/todos', newTodo);
 
