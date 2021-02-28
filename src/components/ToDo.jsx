@@ -61,7 +61,6 @@ class ToDo extends Component {
       id: Math.floor(Math.random() * (2000 - 201) + 201),
       title: this.state.title,
     };
-    console.log(Math.floor(Math.random() * (2000 - 201) + 201));
     try {
       await axios.post('https://jsonplaceholder.typicode.com/todos', newTodo);
 
